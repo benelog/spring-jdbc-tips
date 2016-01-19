@@ -20,7 +20,19 @@ public class SellerRepository {
 ...
 ```
 
-[NamedParameterJdbcDaoSupport](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/namedparam/NamedParameterJdbcDaoSupport.html) 를 활용하면 `setDataSource()` 메서드를 직접 선언하지 않아도 됩니다. `component-scan`과 생성자 주입을 같이 쓸때는 아래와 같이  NamedParameterJdbcDaoSupport의 하위 클래스를 만듭니다.
+[NamedParameterJdbcDaoSupport](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/namedparam/NamedParameterJdbcDaoSupport.html) 를 활용하면 `setDataSource()` 메서드과 멤버변수를 직접 선언하지 않아도 됩니다. 대신 `getNamedParameterJdbcTemplate()`으로 NamedParameterJdbcTemplate을 얻어옵니다. `getNamedParameterJdbcTemplate()`는 메서드 이름이 긴 편이라 짧은 이름으로 따로 멤버변수를 지정하는 편이 편할수도 있습니다. 
+
+
+```java
+public class SellerRepository extends NamedParameterJdbcDaoSupport {
+	public int update(Seller seller) {
+		SqlParameterSource params = new BeanPropertySqlParameterSource(seller);
+		return getNamedParameterJdbcTemplate().update(SellerSqls.UPDATE, params);
+	}
+
+```
+
+`component-scan`과 생성자 주입을 같이 쓸 때는 아래와 같이 선언합니다.
 
 ```java
 @Repository
@@ -28,13 +40,11 @@ public class SellerRepository extends NamedParameterJdbcDaoSupport {
 	private NamedParameterJdbcOperations db;
 	@Autowired
 	public SellerRepository(DataSource dataSource) {
-		super.setDataSource(dataSource);
-		this.db = getNamedParameterJdbcTemplate(); 
+		this.db = new NamedParameterJdbcTemplate(dataSource);
 	}
 ```
 
-`getNamedParameterJdbcTemplate()`는 메서드 이름이 긴 편이라 짧은 이름으로 따로 멤버변수로 지정하기도 합니다. DataSource가 여러 개일때는 `@Qualifier`등으로 원하는 DataSource를 하나만 찍어서 지정해야 합니다.
-
+DataSource가 여러 개일때는 `@Qualifier`등으로 원하는 DataSource를 하나만 찍어서 지정해야 합니다.
 
 ## INSERT 구문을 자동생성
 SimpleJdbcInsert 클래스는 INSERT 구문을 자동으로 생성해줍니다. DB 컬럼명과 객체의 속성명이 일치한다면 아래와 같은 단순한 코드로 DB에 1건을 입력할 수 있습니다.
@@ -115,7 +125,7 @@ public class SellerRepository extends NamedParameterJdbcDaoSupport {
 	
 ```
 
-이런 경우에라도 getter를 호출할때는 오타를 치면 컴파일이 되지 않으므로 MyBatis/IBatis의 방식보다 생산성에서 유리힙니다. 코드를 개선하기에도 좋은 구조입니다. 중복이 될만한 부분을 메서드를 추출할 수도 있고, BeanUtils를 이용해서 Bean -> Map으로 자동변환후 다른 부분만 수동으로 처리할수도 있습니다.
+이런 경우에라도 getter를 호출할때는 오타를 치면 컴파일이 되지 않으므로 MyBatis/IBatis의 방식보다 생산성에서 유리합니다. 코드를 개선하기에도 좋은 구조입니다. 중복이 될만한 부분을 메서드를 추출할 수도 있고, BeanUtils를 이용해서 Bean -> Map으로 자동변환후 다른 부분만 수동으로 처리할수도 있습니다.
 
 
 ## 유연한 DB컬럼명 -> 객체속성명 매핑

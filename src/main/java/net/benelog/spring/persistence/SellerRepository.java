@@ -12,23 +12,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsertOperations;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SellerRepository extends NamedParameterJdbcDaoSupport {
+public class SellerRepository {
 	private NamedParameterJdbcOperations db;
 	private SimpleJdbcInsertOperations sellerInsertion;
 	private RowMapper<Seller> sellerMapper = BeanPropertyRowMapper.newInstance(Seller.class);
 
 	@Autowired
 	public SellerRepository(DataSource dataSource) {
-		super.setDataSource(dataSource);
-		this.db = getNamedParameterJdbcTemplate(); 
+		this.db = new NamedParameterJdbcTemplate(dataSource); 
 
 		this.sellerInsertion = new SimpleJdbcInsert(dataSource)
 			.withTableName("seller")

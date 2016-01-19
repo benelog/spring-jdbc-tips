@@ -12,14 +12,14 @@ import net.benelog.spring.domain.Product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsertOperations;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ProductRepository extends NamedParameterJdbcDaoSupport {
+public class ProductRepository {
 	private NamedParameterJdbcOperations db;
 	private SimpleJdbcInsertOperations productInsertion;
 	private RowMapper<Product> productMapper;
@@ -27,8 +27,7 @@ public class ProductRepository extends NamedParameterJdbcDaoSupport {
 
 	@Autowired
 	public ProductRepository(DataSource dataSource) {
-		super.setDataSource(dataSource);
-		this.db = getNamedParameterJdbcTemplate(); 
+		this.db = new NamedParameterJdbcTemplate(dataSource); 
 
 		this.productInsertion = new SimpleJdbcInsert(dataSource)
 			.withTableName("product")
