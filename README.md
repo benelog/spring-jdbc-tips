@@ -231,7 +231,7 @@ public class Product {
 
 
 ## 쿼리 생성에 Java 코드를 활용
-iBatis, MyBatis에서는 보통 쿼리의 ID를 문자열로 씁니다. Spring JDBC에서는 이를 상수로 선언할 수 있기 때문에  쓰기 때문에 자동완성과 오타 예방, 코드 추적에 더 유리합니다.
+iBatis, MyBatis에서는 보통 쿼리의 ID를 문자열로 씁니다. Spring JDBC에서는 이를 상수로 선언할 수 있기 때문에 자동완성과 오타 예방, 코드 추적에 더 유리합니다.
 
 ![typing_error.png](http://file.benelog.net/include/sql_without_xml/typing_error.png)
 
