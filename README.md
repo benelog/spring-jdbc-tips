@@ -7,9 +7,9 @@ Spring의 JdbcTemplate 계열은 DataSource 객체만 있으면 코드 1줄로 �
 NamedParameterJdbcOperations jdbc = new NamedParameterJdbcTemplate(dataSource);
 ```
 
-DataSource와 트랙잭션 설정 등 어느 프레임워크를 쓰더라도 들어가는 영역을 제외한다면, 위의 한줄이 필요한 선언의 전부입니다. iBatis/MyBatis는 설정파일의 위치 등을 지정해야하기 때문에 이보다는 초기 설정이 이보다는 복잡합니다.
+DataSource와 트랙잭션 설정 등 어느 프레임워크를 쓰더라도 들어가는 영역을 제외한다면, 위의 한줄이 필요한 선언의 전부입니다. iBatis/MyBatis는 설정파일의 위치 등을 지정해야하기 때문에 초기 설정이 이보다는 복잡합니다.
 
-JdbcTemplate 계열은 멀티스레드에서 접근해도 안된합니다. 따라서 매번 객체를 생성할 필요는 없습니다. DAO등에서는 멤버변수로 저장해 둡니다. 보통 DataSoure 객체만 외부에서 주입받아서 아래와 같이 설정합니다.
+JdbcTemplate 계열은 멀티스레드에서 접근해도 안전합니다. 따라서 매번 객체를 생성할 필요는 없습니다. DAO등에서는 멤버변수로 저장해 둡니다. 보통 DataSoure 객체만 외부에서 주입받아서 아래와 같이 설정합니다.
 
 ```java
 public class SellerRepository {
