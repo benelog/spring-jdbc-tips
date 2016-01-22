@@ -1,7 +1,9 @@
 package net.benelog.spring.persistence;
 
-import static org.springframework.util.StringUtils.*;
+import static org.apache.commons.lang.StringUtils.*;
+
 import net.benelog.spring.domain.Seller;
+
 
 public class SellerSqls {
 	public static final String SELECT_BY_ID = """
@@ -43,15 +45,15 @@ public class SellerSqls {
 
 		StringBuilder sql = new StringBuilder(selectPart);
 
-		if (!isEmpty(seller.getName())) {
+		if (isNotBlank(seller.getName())) {
 			sql.append("AND name = :name \n");
 		}
 		
-		if (!isEmpty(seller.getAddress())) {
+		if (isNotBlank(seller.getAddress())) {
 			sql.append("AND address = :address \n");
 		}
 
-		if (!isEmpty(seller.getTelNo())) {
+		if (isNotBlank(seller.getTelNo())) {
 			sql.append("AND tel_no = :telNo \n");
 		}
 
