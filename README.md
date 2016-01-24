@@ -245,15 +245,15 @@ Dynamic SQL을 생성할 때도 Java에서 쓰는 조건/반복문을 자연스�
 		
 		StringBuilder sql = new StringBuilder(selectPart);
 
-		if (!isEmpty(seller.getName())) {
+		if (isNotBlank(seller.getName())) {
 			sql.append("AND name = :name \n");
 		}
 		
-		if (!isEmpty(seller.getAddress())) {
+		if (isNotBlank(seller.getAddress())) {
 			sql.append("AND address = :address \n");
 		}
 
-		if (!isEmpty(seller.getTelNo())) {
+		if (isNotBlank(seller.getTelNo())) {
 			sql.append("AND tel_no = :telNo \n");
 		}
 
