@@ -1,11 +1,15 @@
 package net.benelog.spring.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Seller {
 	private Integer id;
 	private String name;
 	private String address;
 	private String telNo;
 	private String homepage;
+	private List<Product> productList = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -37,10 +41,17 @@ public class Seller {
 	public void setHomepage(String homepage) {
 		this.homepage = homepage;
 	}
+
+	public List<Product> getProductList() {
+		return productList;
+	}
+
 	@Override
 	public String toString() {
 		return "Seller [id=" + id + ", name=" + name + ", address=" + address
 				+ ", telNo=" + telNo + ", homepage=" + homepage + "]";
 	}
-	
+	public void addProduct(Product product) {
+		productList.add(product);
+	}
 }

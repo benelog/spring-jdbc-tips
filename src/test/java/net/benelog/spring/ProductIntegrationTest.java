@@ -5,9 +5,6 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
 
-import net.benelog.spring.domain.Product;
-import net.benelog.spring.persistence.ProductRepository;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import net.benelog.spring.domain.Product;
+import net.benelog.spring.persistence.ProductRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = JdbcApplication.class)
@@ -30,7 +30,7 @@ public class ProductIntegrationTest extends AbstractTransactionalJUnit4SpringCon
 		product.setRegisteredTime(LocalDateTime.now());
 		product.setDescription("좋은 상품");
 	}
-	
+
 	@Test
 	public void shouldBeCreatedAndFound() {
 		// given

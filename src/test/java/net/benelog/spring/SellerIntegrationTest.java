@@ -3,10 +3,8 @@ package net.benelog.spring;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
-
-import net.benelog.spring.domain.Seller;
-import net.benelog.spring.persistence.SellerRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,12 +14,19 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import net.benelog.spring.domain.Product;
+import net.benelog.spring.domain.Seller;
+import net.benelog.spring.persistence.ProductRepository;
+import net.benelog.spring.persistence.SellerRepository;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = JdbcApplication.class)
 public class SellerIntegrationTest extends AbstractTransactionalJUnit4SpringContextTests {
 
 	@Autowired
 	private SellerRepository repo;
+	@Autowired
+	private ProductRepository productRepo;
 	private Seller seller = new Seller();
 
 	@Before
@@ -58,6 +63,28 @@ public class SellerIntegrationTest extends AbstractTransactionalJUnit4SpringCont
 
 		// then	
 		assertThat(selected.size(), is(1));
+	}
+
+	@Test
+	public void shouldBeFoundByWithProduct() {
+		// given
+		Integer id = repo.create(seller);
+		
+		seller.setId(id);
+		Product product = new Product();
+		product.setPrice(130000L);
+		product.setRegisteredTime(LocalDateTime.now());
+		product.setDescription("좋은 상품");
+		
+		product.setSeller(seller);
+		productRepo.create(product);
+
+		// when
+		Seller selected = repo.findByIdWithProduct(id);
+
+		// then	
+		List<Product> productList = selected.getProductList();
+		assertThat(productList.size(), is(1));
 	}
 
 	@Test

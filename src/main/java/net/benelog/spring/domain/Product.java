@@ -8,7 +8,8 @@ public class Product {
 	private Long price;
 	private String description;
 	private LocalDateTime registeredTime;
-	
+	private Seller seller = new Seller();
+
 	public Integer getId() {
 		return id;
 	}
@@ -47,6 +48,14 @@ public class Product {
 
 	public void setRegisteredTime(LocalDateTime registeredTime) {
 		this.registeredTime = registeredTime;
+	}
+
+	public Seller getSeller() {
+		return seller;
+	}
+
+	public void setSeller(Seller seller) {
+		this.seller = seller;
 	}
 
 	@Override

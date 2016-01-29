@@ -59,4 +59,14 @@ public class SellerSqls {
 
 		return sql.toString();
 	}
+
+	public static final String SELECT_BY_ID_WITH_PRODUCT =  """
+		SELECT
+			S.id, S.name, S.tel_no, S.address, S.homepage,
+			P.id AS product_id, P.name AS product_name, P.price, P.desc, P.seller_id, P.reg_time
+		FROM seller S
+			LEFT OUTER JOIN product P ON P.seller_id = S.id
+		WHERE S.id = :id
+	"""
+
 }
