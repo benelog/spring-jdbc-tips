@@ -1,10 +1,5 @@
 package net.benelog.spring.domain;
 
-import javax.annotation.Resource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
 public class Seller {
 	private Integer id;
 	private String name;
@@ -12,8 +7,6 @@ public class Seller {
 	private String telNo;
 	private String homepage;
 
-	@Resource(name="contentDb")
-	@Autowired @Qualifier("d")
 	public Integer getId() {
 		return id;
 	}
