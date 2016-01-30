@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -47,6 +48,19 @@ public class SellerIntegrationTest extends AbstractTransactionalJUnit4SpringCont
 		// then
 		Seller found = repo.findById(id);
 		assertThat(found.getName(), is("정유하"));
+	}
+
+	@Test
+	public void shouldBeFoundByIdList() {
+		// given
+		Integer id1 = repo.create(seller);
+		Integer id2 = repo.create(seller);
+
+		// when
+		List<Seller> sellerList = repo.findByIdList(Arrays.asList(id1,id2));
+
+		// then
+		assertThat(sellerList.size(), is(2));
 	}
 
 	@Test

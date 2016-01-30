@@ -1,7 +1,5 @@
 package net.benelog.spring.persistence;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
@@ -62,6 +60,11 @@ public class SellerRepository {
 	public Seller findById(Integer id) {
 		Map<String, Integer> params = Collections.singletonMap("id", id);
 		return db.queryForObject(SellerSqls.SELECT_BY_ID, params, sellerMapper);
+	}
+
+	public List<Seller> findByIdList(List<Integer> idList) {
+		Map<String, Object> params = Collections.singletonMap("idList", idList);
+		return db.query(SellerSqls.SELECT_BY_ID_LIST, params, sellerMapper);
 	}
 
 	public Seller findByIdWithProduct(Integer id) {

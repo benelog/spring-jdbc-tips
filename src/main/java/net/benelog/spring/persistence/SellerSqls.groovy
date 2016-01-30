@@ -12,6 +12,12 @@ public class SellerSqls {
 				WHERE id = :id
 	"""
 
+	public static final String SELECT_BY_ID_LIST = """
+		SELECT id, name, tel_no, address, homepage
+				FROM seller
+				WHERE id IN (:idList)
+	"""
+
 	public static final String DELETE_BY_ID = """
 		DELETE FROM seller
 		WHERE id = :id
