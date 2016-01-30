@@ -66,23 +66,26 @@ public class SellerIntegrationTest extends AbstractTransactionalJUnit4SpringCont
 	}
 
 	@Test
-	public void shouldBeFoundByWithProduct() {
+	public void shouldBeFoundByIdWithProduct() {
 		// given
-		Integer id = repo.create(seller);
-		
-		seller.setId(id);
-		Product product = new Product();
-		product.setPrice(130000L);
-		product.setRegisteredTime(LocalDateTime.now());
-		product.setDescription("좋은 상품");
-		
-		product.setSeller(seller);
-		productRepo.create(product);
+		Integer id = insertSellerAndProduct();
 
 		// when
 		Seller selected = repo.findByIdWithProduct(id);
 
-		// then	
+		// then
+		List<Product> productList = selected.getProductList();
+		assertThat(productList.size(), is(1));
+	}
+
+	@Test
+	public void shouldBeFoundByIdWithLazyProduct() {
+		Integer id = insertSellerAndProduct();
+
+		// when
+		Seller selected = repo.findByIdWithLazyProduct(id);
+
+		// then
 		List<Product> productList = selected.getProductList();
 		assertThat(productList.size(), is(1));
 	}
@@ -116,5 +119,18 @@ public class SellerIntegrationTest extends AbstractTransactionalJUnit4SpringCont
 		assertThat(deleted, is(true));
 		int countById = countRowsInTableWhere("seller", "id = " +id);
 		assertThat(countById, is(0));
+	}
+
+	private Integer insertSellerAndProduct() {
+		Integer id = repo.create(seller);
+		seller.setId(id);
+		Product product = new Product();
+		product.setPrice(130000L);
+		product.setRegisteredTime(LocalDateTime.now());
+		product.setDescription("좋은 상품");
+		
+		product.setSeller(seller);
+		productRepo.create(product);
+		return id;
 	}
 }

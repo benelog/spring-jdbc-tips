@@ -9,7 +9,7 @@ public class Seller {
 	private String address;
 	private String telNo;
 	private String homepage;
-	private List<Product> productList = new ArrayList<>();
+	private List<Product> productList;
 
 	public Integer getId() {
 		return id;
@@ -46,12 +46,19 @@ public class Seller {
 		return productList;
 	}
 
+	public void setProductList(List<Product> productList) {
+		this.productList = productList;
+	}
+
 	@Override
 	public String toString() {
 		return "Seller [id=" + id + ", name=" + name + ", address=" + address
 				+ ", telNo=" + telNo + ", homepage=" + homepage + "]";
 	}
 	public void addProduct(Product product) {
+		if (productList == null) {
+			productList = new ArrayList<>();
+		}
 		productList.add(product);
 	}
 }

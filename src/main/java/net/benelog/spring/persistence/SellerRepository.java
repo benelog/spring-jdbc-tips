@@ -1,5 +1,7 @@
 package net.benelog.spring.persistence;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
@@ -21,6 +23,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsertOperations;
 import org.springframework.stereotype.Repository;
 
+import net.benelog.spring.domain.LazySeller;
 import net.benelog.spring.domain.Product;
 import net.benelog.spring.domain.Seller;
 
@@ -68,6 +71,17 @@ public class SellerRepository {
 				new SellerProductExtractor(sellerMapper, productMapper, ExpectedResults.ONE_AND_ONLY_ONE);
 		return db.query(SellerSqls.SELECT_BY_ID_WITH_PRODUCT, params, extractor)
 				.get(0);
+	}
+
+	public Seller findByIdWithLazyProduct(Integer id) {
+		Seller seller = findById(id);
+		return new LazySeller(
+			seller,
+			sid ->
+				db.query(ProductSqls.SELECT_PRODUCT_LIST_BY_SELLER_ID,
+					Collections.singletonMap("seller_id", sid),
+					productMapper)
+		);
 	}
 
 	public List<Seller> findBy(Seller condition) {
