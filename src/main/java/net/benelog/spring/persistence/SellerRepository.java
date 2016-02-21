@@ -78,12 +78,11 @@ public class SellerRepository {
 
 	public Seller findByIdWithLazyProduct(Integer id) {
 		Seller seller = findById(id);
+		Map<String, Integer> params = Collections.singletonMap("id", id);
+
 		return new LazySeller(
 			seller,
-			sid ->
-				db.query(ProductSqls.SELECT_PRODUCT_LIST_BY_SELLER_ID,
-					Collections.singletonMap("seller_id", sid),
-					productMapper)
+			() -> db.query(ProductSqls.SELECT_PRODUCT_LIST_BY_SELLER_ID, params, productMapper)
 		);
 	}
 
