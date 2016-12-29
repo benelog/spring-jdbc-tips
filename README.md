@@ -273,7 +273,7 @@ Integer id = insertion.executeAndReturnKey(params).intValue();
 멀티스레드에서 접근해도 안전하기 때문에 DAO 등의 멤버변수로 저장할수도 있습니다.
 
 ```java
-public class SellerRepository extends NamedParameterJdbcDaoSupport {
+public class SellerRepository {
 	private SimpleJdbcInsertOperations sellerInsertion;
 
 	@Autowired
@@ -481,12 +481,13 @@ iBatis, MyBatis에서는 보통 쿼리의 ID를 문자열로 씁니다. Spring J
 Dynamic SQL을 생성할 때도 Java에서 쓰는 조건/반복문을 자연스럽게 쓸 수 있습니다.
 
 ```java
-	public static String selectByCondition(Seller seller) {
-		String selectPart = "SELECT id, name, tel_no, address, homepage\n" +
-				"	FROM seller " +
-				"	WHERE 1=1";
+	prvate static final String SELECT_PART = "SELECT id, name, tel_no, address, homepage\n" +
+			"	FROM seller " +
+			"	WHERE 1=1";
 
-		StringBuilder sql = new StringBuilder(selectPart);
+	public static String selectByCondition(Seller seller) {
+
+		StringBuilder sql = new StringBuilder(SELECT_PART);
 
 		if (isNotBlank(seller.getName())) {
 			sql.append("AND name = :name \n");
