@@ -76,7 +76,7 @@ public class SellerRepository extends NamedParameterJdbcDaoSupport {
 
 ```java
 @Repository
-public class SellerRepository extends NamedParameterJdbcDaoSupport {
+public class SellerRepository {
 	private NamedParameterJdbcOperations db;
 	@Autowired
 	public SellerRepository(DataSource dataSource) {
@@ -85,7 +85,6 @@ public class SellerRepository extends NamedParameterJdbcDaoSupport {
 ```
 
 DataSource가 여러 개일때는 `@Qualifier`등으로 원하는 DataSource를 하나만 찍어서 지정해야 합니다.
-
 
 ## RowMapper : 쿼리 결과를 객체로 변환
 RowMapper는 JDBC의 명세인 ResultSet에서 원하는 객체로 타입을 변환하는 역할을 합니다. 기본적인 전략을 구현할 클래스는 Spring JDBC에서 제공을 합니다.
