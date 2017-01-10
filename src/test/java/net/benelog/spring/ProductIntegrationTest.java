@@ -1,7 +1,7 @@
 package net.benelog.spring;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.time.LocalDateTime;
 
@@ -9,15 +9,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import net.benelog.spring.domain.Product;
 import net.benelog.spring.persistence.ProductRepository;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = JdbcApplication.class)
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = AppConfig.class)
 public class ProductIntegrationTest extends AbstractTransactionalJUnit4SpringContextTests {
 
 	@Autowired
