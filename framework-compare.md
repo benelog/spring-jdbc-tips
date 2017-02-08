@@ -55,6 +55,20 @@ RowMapper<Product>  productMapper = (rs, rowNum) -> {
 };
 ```
 
+아래 코드는 매핑 로직을 private 메서드 안에 두고 메서드 레퍼런스로 호출한 예입니다.
+
+```java
+
+	public Product findById(Integer id) {
+		Map<String, Integer> params = Collections.singletonMap("id", id);
+		return jdbc.queryForObject(ProductSqls.SELECT_BY_ID, params, this::toProduct);
+	}
+
+	private Product toProduct(ResultSet rs, int rowNum) {
+		// 매핑로직
+	}
+
+```
 
 MyBatis에서는 아래와 같이 XML로 쿼리의 결과를 매핑하는 선언을 할 수 있습니다.
 
