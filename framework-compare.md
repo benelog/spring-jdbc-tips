@@ -24,7 +24,7 @@ MyBatis를 쓴다면 `SqlSessionFactory`, `SqlSessionTemplate`, 매퍼XML 혹은
 ### 쿼리 결과 변환 인터페이스
 Spring JDBC의 `RowMapper`라는 인터페이스는 JDBC의 `ResultSet`에서 원하는 자바 객체로 변환하는 역할을 합니다. 기본적으로 제공되는 `RowMapper`의 구현체로는 객체의 setter를 활용하는 `BeanPropertyRowMapper`, `java.util.Map`으로 변환하는 `ColumnMapRowMapper`가 있습니다. 컬럼명과 객체의 속성명을 직접 지정해 줄수 밖에 없을 때에는 `RowMapper` 인터페이스를 직접 구현합니다. 예를 들면 DB의 컬럼은 'desc'인데 Java객체에서는 'description'으로 매핑하고 싶을 때 같은 경우입니다.
 
-`RowMapper`를 구현할 때는 당연히 setter나 생성자 호출 같은 Java 문법을 그대로 활용하면 됩니다. `RowMapper`는 메서드가 하나인 인터페이스이기 때문에 람다표현식과 메서드 레퍼런스를 활용할 수도 있습니다. 아래 코드는 `Product` 클래스 안에 `seller`라는 속성을 포함킨 매핑 로직을 람다표현식으로 작성한 예제입니다.
+`RowMapper`를 구현할 때는 당연히 setter나 생성자 호출 같은 Java 문법을 그대로 활용하면 됩니다. `RowMapper`는 메서드가 하나인 인터페이스이기 때문에 람다표현식과 메서드 레퍼런스를 활용할 수도 있습니다. 아래 코드는 `seller`라는 속성을 포함한 `Product` 클래스에 대한 매핑 로직을 람다 표현식으로 작성한 예제입니다.
 
 ```java
 public class Product {
