@@ -10,18 +10,18 @@ public class SellerSqls {
 		SELECT id, name, tel_no, address, homepage
 				FROM seller 
 				WHERE id = :id
-	"""
+	""";
 
 	public static final String SELECT_BY_ID_LIST = """
 		SELECT id, name, tel_no, address, homepage
 				FROM seller
 				WHERE id IN (:idList)
-	"""
+	""";
 
 	public static final String DELETE_BY_ID = """
 		DELETE FROM seller
 		WHERE id = :id
-	"""
+	""";
 	
 	public static final String UPDATE = """
 		UPDATE seller \n
@@ -30,7 +30,7 @@ public class SellerSqls {
 			 address = :address,
 			 homepage = :homepage
 		WHERE id = :id
-	"""
+	""";
 
 	public static final String ADDRESS_CONDITION = 
 			"AND address = :address \n";
@@ -73,6 +73,6 @@ public class SellerSqls {
 		FROM seller S
 			LEFT OUTER JOIN product P ON P.seller_id = S.id
 		WHERE S.id = :id
-	"""
+	""";
 
 }
