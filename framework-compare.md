@@ -181,7 +181,7 @@ private static void isNotEmpty(String param, StringBuilder sql, String part) {
 
 자주 사용 될법한 `isNotEmpty()` 같은 메서드는 별도의 유틸리티 클래스로 빼고 static import 를 도입하는 등 추가적인 리팩토링 하기에도 좋습니다. 테스트 코드를 짠 후 Emma와 같은 코드커버리지 측정 도구를 사용할 수도 있습니다.
 
-Maven, Eclipse등에서 Groovy를 쓰기 위해 필요한 설정은 [Groovy 설정 방법](./groovy-config.md)을 참조하시기 바랍니다. Groovy를 쓰기 위해서는 빌드툴과 IDE의 Plugin을 설정해야하는 부담이 있지 않냐고 생각하시는 분들도 계실 것입니다. 하지만 상대적으로 빌드 설정 파일의 설정은 MyBatis의 설정을 추가하는 것과 비교하면 간단한 일입니다. Eclipse에서는 Groovy plugin을 개발자 PC마다 설치해야하는 초기의 추가 작업은 필요하기는 합니다. 그러나 Eclipse plugin 설치는 다운로드 받는 시간이 오래 걸릴 뿐 난이도가 높은 작업은 아닙니다. IntelliJ IDEA Ultimate Edition에서는 Groovy plugin이 기본적으로 설치되어 있습니다.
+Maven, Eclipse등에서 Groovy를 쓰기 위해 필요한 설정은 [Groovy 설정 방법](./groovy-config.md)을 참조하시기 바랍니다. Plugin을 설정, 설치해야하는 것이 MyBatis를 쓸 때와 비교하면 추가되는 비용이라고 생각하실 수도 있습니다. 하지만 `pom.xml`이나 `builde.gradle`에 groovy plugin을 추가하는 작업은 MyBatis를 쓰기 위한 설정을 하는 것과 비교하면 간단한 일입니다. Eclipse에서는 Groovy plugin을 각 개발자가 PC에 설치해야하는 추가 작업이 필요하기는 합니다. 그러나 Eclipse plugin 설치는 다운로드 받는 시간이 오래 걸릴 뿐 손이 많이 각는 작업은 아닙니다. IntelliJ IDEA Ultimate Edition에서는 Groovy plugin이 기본적으로 설치되어 있습니다.
 
 #### MyBatis의 XML 선언과의 비교
 MyBatis의 XML로는 비슷한 선언을 아래와 같이 해야합니다.
