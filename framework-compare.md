@@ -63,7 +63,7 @@ MyBatis에서 아래와 같이 XML로 매핑선언을 할 수 있습니다.
 	<result property="name" column="name"/>
 	<result property="price" column="price"/>
 	<result property="description" column="desc"/>
-	<association property="seller" javaType="example.User">
+	<association property="seller" javaType="example.Seller">
 		<constructor>
 			<idArg column="seller_id" javaType="int"/>
 			<arg column="seller_name" javaType="String"/>
@@ -114,12 +114,13 @@ MyBatis에서는 애너테이션으로 쿼리 결과를 매핑하는 방법도 �
 		@Result(property="id", column="id"),
 		@Result(property="name", column="name"),
 		@Result(property="price", column="price")
-		// 추가 쿼리없이 seller에 대한 매핑을 하는 방법은 찾고 있는 중
+		@Result(property="seller.id", column="seller_id")
+		@Result(property="seller.name", column="seller_name")
         })
 
 ```
 
-하지만 직접 getter나 생성자를 호출하는 것보다는 컴파일러의 장점을 활용하지 못합니다. 그리고 앞선 예제처럼 `Product`객체 안에 `Seller`객체가 들어간 경우에는 더 복잡한 선언이 필요해 보입니다.
+하지만 직접 getter나 생성자를 호출하는 것보다는 컴파일러의 장점을 활용하지 못합니다. `property="id"`와 같은 애노테이션의 속성값에 오타가 있어도 컴파일러는 에러를 내지 않고, 이름을 바꾸는 리팩토링을 할 때도 주의를 기울여야 합니다.
 
 
 ### SQL 선언
