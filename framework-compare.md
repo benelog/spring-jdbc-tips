@@ -55,7 +55,8 @@ RowMapper<Product>  productMapper = (rs, rowNum) -> {
 };
 ```
 
-MyBatis에서 아래와 같이 XML로 매핑선언을 할 수 있습니다.
+
+MyBatis에서는 아래와 같이 XML로 쿼리의 결과를 매핑하는 선언을 할 수 있습니다.
 
 ```xml
 <resultMap id="projectResultMap" type="example.Product">
