@@ -278,16 +278,16 @@ class SellerSqlBuilder {
 정리하면, MyBatis에서 애너테이션 방식으로 쿼리를 쓴다고해도 Spring JDBC대비 장점은 보이지 않습니다.
 
 #### 활용법의 상호 응용
-MyBatis에서도 Java코드에 SQL을 선언할수 있게 됨에 따라 Spring JDBC와 MyBatis의 쿼리 관리 기법들은 상호 응용이 가능합니다. 예를 들어보겠습니다.
+MyBatis에서도 Java코드에 SQL을 선언할수 있게 됨에 따라 Spring JDBC와 MyBatis의 쿼리 관리 기법들은 상호 응용이 가능합니다.  2가지 예를 들어보겠습니다.
 
-첫번째, MyBatis에서도 Groovy의 멀티라인 스트링을 이용하는 것입니다. Groovy 클래스 안에 `public static final`로 선언된 SQL은 애너테이션 안에서도 참고가 가능합니다. SQL 선언은 Groovy로 된 상수 클래스에 모으고 아래와 같이 `@Select`와 같은 애너테이션에서는 상수를 참조하도록 선언할 수 있습니다.
+첫째, MyBatis에서도 Groovy의 멀티라인 스트링을 이용하는 것입니다. Groovy 클래스 안에 `public static final`로 선언된 SQL은 애너테이션 안에서도 참고가 가능합니다. SQL 선언은 Groovy로 된 상수 클래스에 모으고 아래와 같이 `@Select`와 같은 애너테이션에서는 상수를 참조하도록 선언할 수 있습니다.
 
 ```java
 	@Select(SellerSqls.SELECT_BY_ID)
 	Seller findById(Integer id)
 ```
 
-두번째, MyBatis의 Sql builder를 Spring JDBC에서 활용하는 것입니다. 앞선 예제의 `SellerSqlBuilder.selectSeller()` 직접 호출한 후 SQL이 단긴 String을 `NamedParameterJdbcTemplate`에 파라미터로 넘길수도 있습니다.
+둘째, MyBatis의 Sql builder를 Spring JDBC에서 활용하는 것입니다. 앞선 예제의 `SellerSqlBuilder.selectSeller()`를 직접 호출한 후 SQL이 단긴 String을 `NamedParameterJdbcTemplate`에 파라미터로 넘기는 방식입니다. `SellerSqlBuilder.selectSeller()`의 메서드 이름을 바꿀 때 더 안전해진다는 장점이 생깁니다.
 
 SQL 쿼리 관리에 대한 더 다양하고 자세한 내용은 [SQL 관리방법](sql-management.md)을 참조하시기 바랍니다.
 
