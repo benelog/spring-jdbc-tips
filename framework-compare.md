@@ -267,14 +267,13 @@ class SellerSqlBuilder {
 
 `@SelectProvider`라는 선언을 통해 SQL을 생성하는 메서드를 참조합니다.
 
-```
+```java
 	@SelectProvider(type = SellerSqlBuilder.class, method = "selectSeller")
 	List<Seller> findSeller(Seller seller);
 
 ```
 
-위의 `selectSeller` 같은 부분은 문자열이므로, 메서드 이름을 바꾸는 리팩토링을 할때 자동으로 반영되지 않는다는 단점이 있습니다.
-
+위의  코드에서 `selectSeller` 속성값은 String 이므로, `SellerSqlBuilder.selectSeller()` 메서드의 이름을 바꾸는 리팩토링을 할때 따로 신경을 써줘야합니다. Spring JDBC를 쓸 때처럼 `SellerSqlBuilder.selectSeller()` 메서드를 직접 호출을 했다면 IDE의 리팩토링 기능을 안심하고 쓸 수 있을 것입니다.
 
 정리하면, MyBatis에서 애너테이션 방식으로 쿼리를 쓴다고해도 Spring JDBC대비 장점은 보이지 않습니다.
 
