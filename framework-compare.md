@@ -104,7 +104,7 @@ RowMapper<Product>  productMapper = (rs, rowNum) -> {
 
 ```
 
-MyBatis/iBatis를 타입의 변환은 DAO의 코드에서 하거나 별도의 [TypeHandler]http://www.mybatis.org/mybatis-3/ko/configuration.html#typeHandlers)를 작성해야 합니다. Spring JDBC에서도 [Converter](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/convert/converter/Converter.html)를 구현해서 별도의 클래스로 변환 로직을 뺄 수도 있습니다. 하지만 1회성 작업이라면 직접 `RowMapper`안에서 구현할 수도 있으므로 MyBatis에 비해서 더 편리합니다.
+MyBatis/iBatis를 쓴다면 타입의 변환은 DAO 안에서 하거나 별도의 [TypeHandler](http://www.mybatis.org/mybatis-3/ko/configuration.html#typeHandlers)를 작성해야 합니다. Spring JDBC에서도 [Converter](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/convert/converter/Converter.html)를 구현해서 반복되는 타입 변환 로직은 별도의 클래스로 뺄 수도 있습니다. 하지만 1회성 작업이라면 직접 `RowMapper`안에서 구현할 수도 있으므로 MyBatis에 비해서 더 편리합니다.
 
 일반화하면 XML선언과 비교해서 Java 코드의 장점은 아래와 같습니다.
 
