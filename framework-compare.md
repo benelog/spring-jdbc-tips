@@ -308,7 +308,7 @@ Spring JDBC와 이를 확장한 라이브러리를 이용하면 간단한 수준
 - [Spring JDBC 확장 라이브러리](spring-jdbc-extensions.md) : `SimpleJdbcUpdate`와 `OneToManyResultSetExtractor`에 대한 소개
 - [연관관계 지연로딩 기법](lazy-loading.md)
 
-본격 ORM에 비하면 빈약한 기능이지만 더 단순하고 명확하다는 장점도 있습니다. 어플리케이션의 특성과 개발자들의 성향에 따라서는 Spring-JDBC가 더 생산성이 높은 경우도 있을 것입니다.
+JPA 같은 본격 ORM에 비하면 빈약한 기능이지만 더 단순하고 명확하다는 장점은 있습니다.
 
 ### 단순한 Collection 파라미터 매핑
 하나의 파라미터로 여러개의 값을 넘길 때에는 `java.util.List` 값으로 넣으면 됩니다. `IN` 절에서 여러개의 파라미터를 받는 코드를 예로 들겠습니다. MyBatis를 쓸때는 아래와 같이 XML 안에서 foreach태그로 반복문을 써줘야합니다. XML 태그로 제어문 프로그래밍을 하는 격입니다.
