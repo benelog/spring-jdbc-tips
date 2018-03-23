@@ -14,33 +14,29 @@ public staic final String DELETE_BY_ID = """
 """;
 
 // 동적 쿼리
-public static String buildSelectSql(Seller seller) {
-	StringBuilder sql = new StringBuilder();
-	sql.append("""
-		SELECT name, address
+public static String selectByCondition(Seller seller) {
+	return """
+		SELECT id, name, tel_no, address, homepage 
 		FROM seller
-		WHERE 1=1
-	""");
-
-	isNotEmpty(seller.getName(), sql, """
-		AND  name = :name
-	""");
-
-	isNotEmpty(seller.getAddress(), sql, """
-		AND  address = :address
-	""");
-
-	return sql.toString();
+		""" +
+	whereAnd (
+		notEmpty(seller.getName(), "name = :name"),
+		notEmpty(seller.getAddress(), "address = :address"),
+		notEmpty(seller.getTelNo(), "tel_no = :telNo")
+	);
+}
+private static String notEmpty(String param, String condition) {
+	return StringUtils.isEmpty(param)? null: condition;
 }
 
-private static void isNotEmpty(String param, StringBuilder sql, String part) {
-	if(StringUtils.isNotEmpty(param)) {
-		sql.append(part);
-	}
+private static String whereAnd(String ... conditions) {
+	List<String> finalCond = conditions.findAll({it != null});
+	Assert.notEmpty(finalCond);
+	return "WHERE " + finalCond.join("\nAND ");
 }
 ```
 
-미래에 Java에도 멀티라인 스트링이 도입이 된다면 Groovy에 대한 의존을 제거할 수도 있습니다. 멀티라인 스트링의 문법은 다른 JVM 언어인 Groovy, Scala, Kotlin, Ceylon이 동일하기에 Java도 같은 형식의 문법을 도입할 가능성이 높습니다. 그때가 온다면 아래 명령어로 일괄적으로 Groovy 파일을 Java로 전환하면 됩니다.
+Java에도 여러줄에 걸친 문자열을 쓸 수 있는 [JEP 326: Raw String Literals](http://openjdk.java.net/jeps/326) 이라는 스펙이 제안되어 있습니다. 2018년 9월에 릴리즈되는 JDK11에 이 스펙이 포함될 가능성이 높습니다. 그 시점에는 Groovy에 대한 의존을 제거할 수도 있습니다. 다만 JEP 326에 제안된 문법은 Groovy와 같은 따옴표3개가 아닌 "`"(backticks) 입니다. 따옴표 새 개를 backticks으로 'Replace all' 한후에 아래 명령어로 일괄적으로 Groovy 파일을 Java로 전환하면 됩니다.
 
 ```
 find . -name '*.groovy' -print0 | xargs -0 rename 's/.groovy$/.java/'
