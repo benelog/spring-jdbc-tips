@@ -14,6 +14,11 @@ public class SellerSqlsTest {
 
 		String sql = SellerSqls.selectByCondition(condition);
 		System.out.println(sql);
+	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void selectByConditionEmpty() {
+		Seller condition = new Seller();
+		SellerSqls.selectByCondition(condition);
 	}
 }
