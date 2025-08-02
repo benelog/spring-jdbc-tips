@@ -222,6 +222,27 @@ public static String buildSelectSql(Seller seller) {
 
 위의 예시에서는 `{it != null}` 와 같은 Groovy의 문법을 활용했지만, 기본 Java 문법으로도 같은 구현을 할 수 있습니다. 'where'절에 아무런 조건이 걸리지 않고 전체 열이 조회되는 것을 막기 위한  `Assert.notEmpty(finalCond);` 도 추가했습니다. 이런 코드를 공통 유틸리티에 넣어두어서 where 절에는 하나의 조건이상은 필수로 넣도록 프로젝트 정책으로 통제할 수도 있습니다.
 
+
+또는 Groovy나 Kotlin의 String interpolation기능을 이용하면 더 간단한 코드를 쓸 수 있습니다.
+위의 코드는 아래와 같이 바꿀수 있습니다.
+
+```groovy
+	public static String selectByCondition(Seller seller) {
+		return """
+			SELECT id, name, tel_no, address, homepage 
+			FROM seller
+			${whereAnd(
+			    notEmpty(seller.name, "name = :name"),
+			    notEmpty(seller.address, "address = :address"),
+			    notEmpty(seller.telNo, "tel_no = :telNo")
+			)}
+		);
+	}
+
+```
+
+String interpolation안에서도 
+
 Maven, Eclipse등에서 Groovy를 쓰기 위해 필요한 설정은 [Groovy 설정 방법](./groovy-config.md)을 참조하시기 바랍니다. Plugin을 설정, 설치해야하는 것이 MyBatis를 쓸 때와 비교하면 추가되는 비용이라고 생각하실 수도 있습니다. 하지만 `pom.xml`이나 `builde.gradle`에 groovy plugin을 추가하는 작업은 MyBatis를 쓰기 위한 설정을 하는 것과 비교하면 간단한 일입니다. Eclipse에서는 Groovy plugin을 각 개발자가 PC에 설치해야하는 추가 작업이 필요하기는 합니다. 그러나 Eclipse plugin 설치는 다운로드 받는 시간이 오래 걸릴 뿐 손이 많이 각는 작업은 아닙니다. IntelliJ IDEA Ultimate Edition에서는 Groovy plugin이 기본적으로 설치되어 있습니다.
 
 #### MyBatis의 XML 선언과의 비교

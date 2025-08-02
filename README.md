@@ -4,4 +4,4 @@
 - [Spring JDBC 확장 라이브러리](spring-jdbc-extensions.md)
 - [SQL 관리 방안](sql-management.md)
     - [Java 프로젝트에 Groovy를 섞어 쓰는 설정](groovy-config.md)
-- [연관관계 지연로딩 기법](lazy-loading.md)
+
